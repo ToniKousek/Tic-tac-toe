@@ -42,11 +42,11 @@ def print_board():
     for i, e in enumerate(board):
         # if not end line
         if (i + 1) % 3 != 0:
-            print(f"{e}|", end="")
+            print(f"{e}|", end="") if e != " " else print(f"{i+1}|", end="")
         elif i >= 8:
-            print(e)
+            print(e) if e != " " else print(i+1)
         else:
-            print(f"{e}\n-----")
+            print(f"{e}\n-----") if e != " " else print(f"{i+1}\n-----")
 
 
 # when the game is over/no more moves left or the game is won
