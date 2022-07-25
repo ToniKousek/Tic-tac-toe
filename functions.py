@@ -43,91 +43,78 @@ def start_over():
         system('cls')
     else:
         system('clear')
-    
-    move_counter = 0
-    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
-    on_move = player_string[0]
-    return (move_counter,board,on_move)
 
 
 # to see if somebody won
-def winning_conditions():
+def winning_conditions(board, on_move_string):
     # three in a row
     for i in range(0, 9, 3):
         if board[i] != " ":
-            if board[i] == on_move and board[i+1] == on_move and board[i+2] == on_move:
-                win()
+            if board[i] == on_move_string and board[i+1] == on_move_string and board[i+2] == on_move_string:
+                win(on_move_string)
     # three in a collumn
     for i in range(3):
         if board[i] != " ":
-            if board[i] == on_move and board[i+3] == on_move and board[i+6] == on_move:
-                win()
+            if board[i] == on_move_string and board[i+3] == on_move_string and board[i+6] == on_move_string:
+                win(on_move_string)
     # three in a diagonal
     # from upper left to bottom right
     if board[0] != " ":
-        if board[0] == on_move and board[4] == on_move and board[8] == on_move:
-            win()
+        if board[0] == on_move_string and board[4] == on_move_string and board[8] == on_move_string:
+            win(on_move_string)
     # from upper right to bottom left
     if board[2] != " ":
-        if board[2] == on_move and board[4] == on_move and board[6] == on_move:
-            win()
+        if board[2] == on_move_string and board[4] == on_move_string and board[6] == on_move_string:
+            win(on_move_string)
 
 
 # to be organized
-def win():
+def win(on_move_string):
     print()
-    print(f"{on_move}'s won!")
+    print(f"{on_move_string}'s won!")
     sleep(1)
     print("Congratulations!")
     start_over()
 
 
-# main loop
-while True:
-
-    # making the move and seeing if it is a valid number
+def grab_input(board, on_move_string):
     try:
-        move = int(input(f"Place your turn ({on_move}): "))
+        move = int(input(f"Place your turn ({on_move_string}): "))
     except ValueError:
         print("Please press a integer, not whatever you typed!")
-        continue
+        return 1
     except KeyboardInterrupt:
         print("Shutting down now")
         start_over()
-        break
+        return 0
     print()
 
     if move < 1:
         print("Shutting down now!")
         start_over()
-        break
+        return 0
 
     # seeing if a valid number is put
     try:
         # has he played it
         if board[move - 1] == " ":
             # inserting the move
-            board[move - 1] = on_move
+            board[move - 1] = on_move_string
             move_counter += 1
         else:
             print("That move has allready been played!")
             print()
-            continue
+            return 1
     except IndexError:
         print("Shutting down now!")
         start_over()
-        break
+        return 0
 
-    print_board()
 
-    winning_conditions()
+# who's turn is it
+def change_turn(on_move_string, player_string):
 
-    # who's turn is it
-    if on_move == player_string[0]:
-        on_move = player_string[1]
+    if on_move_string == player_string[0]:
+        return player_string[1]
     else:
-        on_move = player_string[0]
-
-    # is there any moves left to play
-    if move_counter >= 9:
-        start_over()
+        return player_string[0]
