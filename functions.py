@@ -22,7 +22,6 @@ def start_of_game_printing():
     print()
 
 
-# to see clearer / to bo more organized
 # printing the board fuction
 def print_board(board):
     for i, e in enumerate(board):
@@ -77,38 +76,46 @@ def win(on_move_string):
     start_over()
 
 
-def grab_input(board, on_move_string):
+def grab_check_input(board, on_move_string):
     try:
         move = int(input(f"Place your turn ({on_move_string}): "))
     except ValueError:
         print("Please press a integer, not whatever you typed!")
-        return 1
+        return 11
     except KeyboardInterrupt:
         print("Shutting down now")
         start_over()
-        return 0
+        return 10
+    
+    if move > 9:
+        print("Shutting down now!")
+        start_over()
+        return 10
+
     print()
+    
 
     if move < 1:
         print("Shutting down now!")
         start_over()
-        return 0
+        return 10
 
     # seeing if a valid number is put
     try:
         # has he played it
-        if board[move - 1] == " ":
-            # inserting the move
-            board[move - 1] = on_move_string
-            move_counter += 1
-        else:
+        if board[move - 1] != " ":
             print("That move has allready been played!")
             print()
-            return 1
+            return 11
+
     except IndexError:
         print("Shutting down now!")
         start_over()
-        return 0
+        return 10
+
+    return move
+
+    
 
 
 # who's turn is it
