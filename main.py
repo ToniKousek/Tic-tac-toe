@@ -4,6 +4,7 @@
 from os import system, name
 # to see the final board for a bit longer
 from time import sleep
+from random import randint
 # to get all functions for the general game
 import functions as game
 
@@ -39,7 +40,7 @@ while True:
 
     game.winning_conditions(board,on_move)
 
-    game.change_turn(on_move,player_string)
+    on_move = game.change_turn(on_move,player_string)
 
     # is there any moves left to play
     if move_counter >= 9:
