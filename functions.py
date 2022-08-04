@@ -22,6 +22,18 @@ def start_of_game_printing():
     print()
 
 
+def choose_opponent():
+    print("Who would you like to play against:")
+    
+    f = 1
+    while f:
+        opp = input("press e for the easy bot,\nor press p for another human player: ")
+        if opp.strip().lower() == "e" or opp.strip().lower() == "p":
+            return opp
+        else:
+            print("Please press the following, and not gibberish:")
+
+
 # printing the board fuction
 def print_board(board):
     for i, e in enumerate(board):
@@ -32,6 +44,7 @@ def print_board(board):
             print(e) if e != " " else print(i+1)
         else:
             print(f"{e}\n-----") if e != " " else print(f"{i+1}\n-----")
+    print()
 
 
 # when the game is over/no more moves left or the game is won
@@ -51,20 +64,24 @@ def winning_conditions(board, on_move_string):
         if board[i] != " ":
             if board[i] == on_move_string and board[i+1] == on_move_string and board[i+2] == on_move_string:
                 win(on_move_string)
+                return 1
     # three in a collumn
     for i in range(3):
         if board[i] != " ":
             if board[i] == on_move_string and board[i+3] == on_move_string and board[i+6] == on_move_string:
                 win(on_move_string)
+                return 1
     # three in a diagonal
     # from upper left to bottom right
     if board[0] != " ":
         if board[0] == on_move_string and board[4] == on_move_string and board[8] == on_move_string:
             win(on_move_string)
+            return 1
     # from upper right to bottom left
     if board[2] != " ":
         if board[2] == on_move_string and board[4] == on_move_string and board[6] == on_move_string:
             win(on_move_string)
+            return 1
 
 
 # to be organized

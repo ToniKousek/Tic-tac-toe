@@ -8,4 +8,6 @@ def get_input(board, player_string):
     while flag:
         move = randint(1,9)
         if board[move - 1] != player_string[0] and board[move - 1] != player_string[1]:
+            print("The bot made the move!\n")
             return move
+    
