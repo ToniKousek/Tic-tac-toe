@@ -22,45 +22,39 @@ num_of_games = 0
 on_move = player_string[num_of_games % 2]
 
 
-
-
 game.start_of_game_printing()
 
 opponent = game.choose_opponent()
 
 # main loop
 while True:
-    
+
     if opponent == "e":
         if on_move == player_string[0]:
-            returned = game.grab_check_input(board,on_move)
+            returned = game.grab_check_input(board, on_move)
         else:
-            returned = ebot.get_input(board,player_string)
+            returned = ebot.get_input(board)
     elif opponent == "p":
-        returned = game.grab_check_input(board,on_move)
-
-
+        returned = game.grab_check_input(board, on_move)
 
     if returned == 10:
         break
     elif returned == 11:
         continue
-    else:         
+    else:
         board[returned - 1] = on_move
         move_counter += 1
 
-
     game.print_board(board)
 
-    if game.winning_conditions(board,on_move):
+    if game.winning_conditions(board, on_move):
         board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
         num_of_games += 1
         on_move = player_string[num_of_games % 2]
         move_counter = 0
+        continue
 
-
-
-    on_move = game.change_turn(on_move,player_string)
+    on_move = game.change_turn(on_move, player_string)
 
     # is there any moves left to play
     if move_counter >= 9:

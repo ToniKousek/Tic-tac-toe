@@ -1,13 +1,16 @@
-#all the functions made for the easy bot
+# all the functions made for the easy bot
 
-from random import randint
+from random import choice
 
 
-def get_input(board, player_string):
-    flag = 1
-    while flag:
-        move = randint(1,9)
-        if board[move - 1] != player_string[0] and board[move - 1] != player_string[1]:
-            print("The bot made the move!\n")
-            return move
-    
+def get_input(board):
+    # getting the unplayed moves
+    bar = []
+    for e, i in enumerate(board):
+        if i == " ":
+            bar.append(e+1)
+
+    # choosing the random number
+    move = choice(bar)
+    print(f"The bot made the move {move}!\n")
+    return move
