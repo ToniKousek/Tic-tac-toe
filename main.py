@@ -8,6 +8,7 @@ from random import randint
 # to get all functions for the general game
 import functions as game
 import ebot
+import mbot
 
 # its spaces for eazy printing the board
 # spaces mean nobody played there
@@ -34,6 +35,11 @@ while True:
             returned = game.grab_check_input(board, on_move)
         else:
             returned = ebot.get_input(board)
+    elif opponent == "m":
+        if on_move == player_string[0]:
+            returned = game.grab_check_input(board, on_move)
+        else:
+            returned = mbot.get_input(board,player_string)
     elif opponent == "p":
         returned = game.grab_check_input(board, on_move)
 
@@ -48,6 +54,7 @@ while True:
     game.print_board(board)
 
     if game.winning_conditions(board, on_move):
+        game.win(on_move)
         board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
         num_of_games += 1
         on_move = player_string[num_of_games % 2]

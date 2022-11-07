@@ -1,16 +1,11 @@
 # all the functions made for the easy bot
 
 from random import choice
+from functions import return_non_empty
 
 
 def get_input(board):
-    # getting the unplayed moves
-    bar = []
-    for e, i in enumerate(board):
-        if i == " ":
-            bar.append(e+1)
-
     # choosing the random number
-    move = choice(bar)
+    move = choice(return_non_empty(board)) + 1
     print(f"The bot made the move {move}!\n")
     return move
