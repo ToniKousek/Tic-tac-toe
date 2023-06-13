@@ -50,7 +50,7 @@ def print_board(board):
 # when the game is over/no more moves left or the game is won
 def start_over():
     # change this number(it can be a integer or a float) to change how many seconds to freeze the screen
-    #sleep(3.5)
+    sleep(3.5)
     if name == 'nt':
         system('cls')
     else:
@@ -143,28 +143,28 @@ def change_turn(on_move_string, player_string):
 
 # functions used accross bots -----------------------------------------------------------------------------------------------------------------
 def return_non_empty(board):
-        non_empty = []
-        for e, i in enumerate(board):
-            if i == " ":
-                non_empty.append(e)
-        return non_empty
+    non_empty = []
+    for e, i in enumerate(board):
+        if i == " ":
+            non_empty.append(e)
+    return non_empty
 
 def can_win(board, player_string): 
-    for move in return_non_empty(board):
+    non_empty = return_non_empty(board)
+    for move in non_empty:
         temp = board[:]
         temp[move] = player_string[1]
         if winning_conditions(temp,player_string[1]):
             return (1,move+1)
-        else:
-            return (0,0)
+    return (0,0)
         
 
 
 def can_lose(board,player_string):
-    for move in return_non_empty(board):
+    non_empty = return_non_empty(board)
+    for move in non_empty:
         temp = board[:]
         temp[move] = player_string[0]
         if winning_conditions(temp,player_string[0]):
             return (1,move+1)
-        else:
-            return (0,0)
+    return (0,0)

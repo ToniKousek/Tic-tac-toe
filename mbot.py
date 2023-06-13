@@ -3,17 +3,20 @@
 from random import choice
 from functions import can_lose,can_win,return_non_empty
 
-def get_input(board,player_string):
-    poss = (can_win(board,player_string),can_lose(board,player_string))
-    if poss[0][0] == 1:
-        print(f"The bot made the move {poss[0][1]}!\n")
-        return poss[0][1]
-    elif poss[1][0] == 1:
-        print(f"The bot made the move {poss[1][1]}!\n")
-        return poss[1][1]
-    else:
-        # random
-        move = choice(return_non_empty(board)) + 1
+def best_move(board,player_string):
+    move = can_win(board,player_string)
+    if move != (0,0):
         print(f"The bot made the move {move}!\n")
-        return move
+        return move[1]
+    move = can_lose(board,player_string)
+    if move != (0,0):
+        print(f"The bot made the move {move}!\n")
+        return move[1]
+    move = choice(return_non_empty(board)) + 1
+    print(f"The bot made the move {move}!\n")
+    return move
+    
+
+def get_input(board,player_string):
+    return best_move(board,player_string)
 
